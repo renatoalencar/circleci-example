@@ -14,9 +14,9 @@ jobs:
     steps:
       - checkout
       - run: |
-        echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
-        gcloud --quiet config set project ${GCLOUD_PROJECT}
-        gcloud --quite config set compute/zone ${GCLOUD_COMPUTE_ZONE}
+          echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
+          gcloud --quiet config set project ${GCLOUD_PROJECT}
+          gcloud --quite config set compute/zone ${GCLOUD_COMPUTE_ZONE}
       
       - run: |
-        gcloud builds submit --tag gcr.io/${GCLOUD_PROJECT}/circleci-example
+          gcloud builds submit --tag gcr.io/${GCLOUD_PROJECT}/circleci-example

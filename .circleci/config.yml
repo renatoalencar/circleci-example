@@ -1,22 +1,22 @@
 version: 2
 jobs:
-  build:
-    docker:
-      - image: circleci/node
-    steps:
-      - checkout
-      - run: npm install --dev
-      - run: npm test
+  - build:
+      docker:
+        - image: circleci/node
+      steps:
+        - checkout
+        - run: npm install --dev
+        - run: npm test
 
-  deploy:
-    docker:
-      - image: google/cloud-sdk
-    steps:
-      - checkout
-      - run: |
-          echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
-          gcloud --quiet config set project ${GCLOUD_PROJECT}
-          gcloud --quite config set compute/zone ${GCLOUD_COMPUTE_ZONE}
-      
-      - run: |
-          gcloud builds submit --tag gcr.io/${GCLOUD_PROJECT}/circleci-example
+  - deploy:
+      docker:
+        - image: google/cloud-sdk
+      steps:
+        - checkout
+        - run: |
+            echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
+            gcloud --quiet config set project ${GCLOUD_PROJECT}
+            gcloud --quite config set compute/zone ${GCLOUD_COMPUTE_ZONE}
+        
+        - run: |
+            gcloud builds submit --tag gcr.io/${GCLOUD_PROJECT}/circleci-example
